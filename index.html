@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>Index. didehpc 0.1.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="Rich FitzJohn">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">didehpc 0.1.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <div class="row">
+  <div class="span8">
+    <h1>didehpc</h1>
+
+<blockquote>
+<p>DIDE Cluster Support</p>
+</blockquote>
+
+<p><strong>NOTICE</strong>: This will only be of use to people at DIDE, as it uses our <a href="https://mrcdata.dide.ic.ac.uk/hpc">cluster web portal</a>, local cluster, and local network file systems.</p>
+
+<h2>What is this?</h2>
+
+<p>This is a package for interfacing with the DIDE cluster directly from R.  It is meant make jobs running on the cluster appear as if they are running locally but asynchronously.  The idea is to let the cluster appear as an extension of your own computer so you can get using it within an R project easily.</p>
+
+<h2>How does it work?</h2>
+
+<p>The steps below are described in more detail in the <a href="https://mrc-ide.github.io/didehpc">vignettes</a></p>
+
+<ol>
+<li>Ensure that your project is in a directory that the cluster can see (i.e. on one of the network drives).  See <a href="https://mrc-ide.github.io/didehpc/vignettes/didehpc.html#mapping-network-drives">notes</a> for instructions</li>
+<li>Set your DIDE credentials up so that you can log in and tell <code>didehpc</code> about them.</li>
+<li>Create a &ldquo;context&rdquo; in which future expressions will be evaluated (which will be recreated on the cluster)</li>
+<li>Create a &ldquo;queue&rdquo; that uses that context</li>
+<li>Queue expressions which will be run at some future time on the cluster</li>
+<li>Monitor progress, retrieve results, etc.</li>
+</ol>
+
+<h2>Documentation</h2>
+
+<p>Documentation is a work in progress, but largely contained in two vignettes:</p>
+
+<ul>
+<li><a href="https://mrc-ide.github.io/didehpc/vignettes/didehpc.html">The main vignette</a> contains full instructions and explanations about why some bits are needed.</li>
+<li>There is a <a href="https://mrc-ide.github.io/didehpc/vignettes/quickstart.html">quickstart guide</a> which is much shorter and will be quicker to glance through.</li>
+</ul>
+
+<h2>Installation</h2>
+
+<p>The simplest approach is to run:</p>
+
+<pre><code class="r">source(&quot;https://mrc-ide.github.io/didehpc/install&quot;)
+</code></pre>
+
+<pre><code># install.packages(&quot;drat&quot;) # if needed
+drat:::add(&quot;mrc-ide&quot;)
+install.packages(&quot;didehpc&quot;)
+</code></pre>
+
+
+    <h2>Help topics</h2>
+
+    <h3></h3>
+    
+    
+    <ul class="index">
+        
+      <li>
+        <code><a href="cluster_load.html">cluster_load</a></code><br />Overall cluster load</li>
+            
+      <li>
+        <code><a href="didehpc_config.html">didehpc_config</a></code>(didehpc_config_global)<br />Configuration</li>
+            
+      <li>
+        <code><a href="path_mapping.html">path_mapping</a></code><br />Describe a path mapping</li>
+            
+      <li>
+        <code><a href="queue_didehpc.html">queue_didehpc</a></code><br />Create a queue object</li>
+            
+      <li>
+        <code><a href="valid_clusters.html">valid_clusters</a></code><br />Valid DIDE clusters</li>
+            
+      <li>
+        <code><a href="web_login.html">web_login</a></code>(web_headnodes, web_logged_in, web_logout)<br />Log on to the cluster</li>
+    
+    </ul>
+  </div>
+  
+  <div class="span3 offset1">
+    <h2>Vignettes</h2>
+    <ul>
+      <li><a href="vignettes/didehpc.html">R and the DIDE cluster</a></li>
+      <li><a href="vignettes/quickstart.html">Quickstart for R and the DIDE cluster</a></li>
+      <li><a href="vignettes/workers.html">Workers</a></li>
+    </ul>
+        
+    <h2>Dependencies</h2>
+    <ul>
+      
+      <li><strong>Imports</strong>: crayon, context, getPass, httr, provisionr, queuer, rematch, storr, whisker, xml2</li>
+      <li><strong>Suggests</strong>: buildr, drat, knitr, redux, rmarkdown, rrq, syncr, testthat</li>
+      
+    </ul>
+    <h2>Authors</h2>
+    <ul>
+    </ul>
+
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

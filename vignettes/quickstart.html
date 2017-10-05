@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="author" content="Rich FitzJohn" />
+
+<meta name="date" content="2017-05-11" />
+
+<title>Quickstart for R and the DIDE cluster</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0A%7D%0Apre%20%7B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div id="header">
+<h1 class="title">Quickstart for R and the DIDE cluster</h1>
+<h4 class="author"><em>Rich FitzJohn</em></h4>
+<h4 class="date"><em>2017-05-11</em></h4>
+</div>
+
+
+<blockquote>
+<p>Get yourself running R jobs on the cluster in 10 minutes or so.</p>
+</blockquote>
+<p>Assumptions that I make here:</p>
+<ul>
+<li><p>you are using R</p></li>
+<li><p>your task can be represented as running a function on some inputs to create an output (a file based output is OK)</p></li>
+<li><p>you are working on a network share and have this mounted on your computer</p></li>
+<li><p>you know what packages your code depends on</p></li>
+<li><p>your package dependencies are all on CRAN, and are all available in windows binary form.</p></li>
+</ul>
+<p>If any of these do not apply to you, you’ll probably need to read the full vignette. In any case the full vignette contains a bunch more information anyway.</p>
+<div id="install-a-lot-of-packages" class="section level2">
+<h2>Install a lot of packages</h2>
+<p>Install the packages using <a href="https://cran.rstudio.com/package=drat"><code>drat</code></a></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># install.package(&quot;drat&quot;) # if you don't have it already</span>
+drat:::<span class="kw">add</span>(<span class="st">&quot;mrc-ide&quot;</span>)
+<span class="kw">install.packages</span>(<span class="st">&quot;didehpc&quot;</span>)</code></pre></div>
+<p>Or, somewhat equivalently</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">source</span>(<span class="st">&quot;https://mrc-ide.github.io/didehpc/install&quot;</span>)</code></pre></div>
+</div>
+<div id="describe-your-computer-so-we-can-find-things" class="section level2">
+<h2>Describe your computer so we can find things</h2>
+<p>On windows if you are using a domain machine, you should need only to select the cluster you want to use</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">didehpc.cluster =</span> <span class="st">&quot;fi--didemrchnb&quot;</span>)</code></pre></div>
+<p>Otherwise, and on any other platform you’ll need to provide your username:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">didehpc.cluster =</span> <span class="st">&quot;fi--didemrchnb&quot;</span>,
+        <span class="dt">didehpc.username =</span> <span class="st">&quot;yourusername&quot;</span>)</code></pre></div>
+<p>If you are running Linux we can get both your username and password from the file you use to mount your network shares (see the main vignette for details)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">didehpc.cluster =</span> <span class="st">&quot;fi--didemrchnb&quot;</span>,
+        <span class="dt">didehpc.credentials =</span> <span class="st">&quot;~/.smbcredentials&quot;</span>)</code></pre></div>
+<p>You can see the default configuration with</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">didehpc::<span class="kw">didehpc_config</span>()</code></pre></div>
+<pre><code>## &lt;didehpc_config&gt;
+##  - cluster: fi--didemrchnb
+##  - credentials: ~/.smbcredentials
+##  - username: rfitzjoh
+##  - build_server: builderhv.dide.ic.ac.uk
+##  - template: GeneralNodes
+##  - hpctools: FALSE
+##  - resource:
+##     - parallel: FALSE
+##     - count: 1
+##     - type: Cores
+##  - shares:
+##     - home: (local) /home/rich/net/home =&gt; //fi--san03/homes/rfitzjoh =&gt; Q: (remote)
+##     - temp: (local) /home/rich/net/temp =&gt; //fi--didef2/tmp =&gt; T: (remote)
+##  - use_workers: FALSE
+##  - use_rrq: FALSE
+##  - worker_timeout: 600
+##  - rtools: FALSE
+##  - r_version: 3.3.2</code></pre>
+<p>If this is the first time you have run this package, best to try out the login proceedure with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">didehpc::<span class="kw">web_login</span>()</code></pre></div>
+<p>because this unroots a number of problems early on.</p>
+</div>
+<div id="describe-your-project-dependencies-so-we-can-recreate-that-on-the-cluster" class="section level2">
+<h2>Describe your project dependencies so we can recreate that on the cluster</h2>
+<p>Make a vector of packages that you use in your project:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">packages &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;ape&quot;</span>, <span class="st">&quot;MASS&quot;</span>)</code></pre></div>
+<p>And of files that define functions that you ned to run things:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sources &lt;-<span class="st"> &quot;mysources.R&quot;</span></code></pre></div>
+<p>If you had a vector here that would be OK too. The source file here is very simple:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">make_tree &lt;-<span class="st"> </span>function(nspp) {
+  <span class="kw">message</span>(<span class="st">&quot;I am building a tree!&quot;</span>)
+  ape::<span class="kw">rtree</span>(nspp)
+}
+
+combine &lt;-<span class="st"> </span>function(a, b, c) {
+  <span class="kw">sprintf</span>(<span class="st">&quot;%s: %2.5f&quot;</span>, a, b +<span class="st"> </span>c)
+}</code></pre></div>
+<p>Then save this together to form a “context”.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ctx &lt;-<span class="st"> </span>context::<span class="kw">context_save</span>(<span class="st">&quot;contexts&quot;</span>, <span class="dt">packages =</span> packages, <span class="dt">sources =</span> sources)</code></pre></div>
+<p>If you have no packages or no sources, use <code>NULL</code> or omit them in the call below (which is the default anyway).</p>
+<p>The first argument here, <code>&quot;contexts&quot;</code> is the name of a directory that we will use to hold a lot of information about your jobs. You don’t need (or particularly want) to know what is in here.</p>
+</div>
+<div id="build-a-queue-based-on-this-context." class="section level2">
+<h2>Build a queue, based on this context.</h2>
+<p>This will prompt you for your password, as it will try and log in.</p>
+<p>It also installs windows versions of all packages within the <code>contexts</code> directory – both packages required to get this whole system working and then the packages required for your particular jobs.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj &lt;-<span class="st"> </span>didehpc::<span class="kw">queue_didehpc</span>(ctx)</code></pre></div>
+<pre><code>## Loading context a1419fe31f4c3fb34f489d2fab7a6c05</code></pre>
+<pre><code>## Already logged in</code></pre>
+<pre><code>## [ download  ]  package database</code></pre>
+<pre><code>## [ deps      ]  7 extra: crayon, digest, ids, openssl, R6, storr, uuid</code></pre>
+<pre><code>## [ cross     ]  ape</code></pre>
+<pre><code>## [ cross     ]  context</code></pre>
+<pre><code>## [ cross     ]  crayon</code></pre>
+<pre><code>## [ cross     ]  digest</code></pre>
+<pre><code>## [ cross     ]  ids</code></pre>
+<pre><code>## [ cross     ]  openssl</code></pre>
+<pre><code>## [ cross     ]  R6</code></pre>
+<pre><code>## [ cross     ]  storr</code></pre>
+<pre><code>## [ cross     ]  uuid</code></pre>
+<pre><code>## [ cross     ]  MASS</code></pre>
+<p>Once you get to this point we’re ready to start running things on the cluster. Let’s fire off a test to make sure that everything works OK:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span>obj$<span class="kw">enqueue</span>(<span class="kw">sessionInfo</span>())</code></pre></div>
+<p>We can poll the job for a while, which will print a progress bar. If the job is returned in time, it will return the result of running the function. Otherwise it will throw an error.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t$<span class="kw">wait</span>(<span class="dv">120</span>)</code></pre></div>
+<pre><code>## R version 3.3.2 (2016-10-31)
+## Platform: x86_64-w64-mingw32/x64 (64-bit)
+## Running under: Windows Server 2012 R2 x64 (build 9600)
+##
+## locale:
+## [1] LC_COLLATE=English_United Kingdom.1252
+## [2] LC_CTYPE=English_United Kingdom.1252
+## [3] LC_MONETARY=English_United Kingdom.1252
+## [4] LC_NUMERIC=C
+## [5] LC_TIME=English_United Kingdom.1252
+##
+## attached base packages:
+## [1] methods   stats     graphics  grDevices utils     datasets  base
+##
+## other attached packages:
+## [1] ape_4.1     MASS_7.3-47
+##
+## loaded via a namespace (and not attached):
+## [1] R6_2.2.1        parallel_3.3.2  context_0.1.1   nlme_3.1-128
+## [5] grid_3.3.2      digest_0.6.12   storr_1.1.0     lattice_0.20-34</code></pre>
+<p>You can use <code>t$result()</code> to get the result straight away (throwing an error if it is not ready) or <code>t$wait(Inf)</code> to wait forever.</p>
+</div>
+<div id="running-a-single-task" class="section level2">
+<h2>Running a single task</h2>
+<p>This is just using the <code>enqueue</code> function as above. But it also works with functions defined in files passed in as <code>sources</code>; here the function <code>make_tree</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t &lt;-<span class="st"> </span>obj$<span class="kw">enqueue</span>(<span class="kw">make_tree</span>(<span class="dv">10</span>))
+tree &lt;-<span class="st"> </span>t$<span class="kw">wait</span>(<span class="dv">120</span>)
+tree</code></pre></div>
+<pre><code>##
+## Phylogenetic tree with 10 tips and 9 internal nodes.
+##
+## Tip labels:
+##  t8, t5, t10, t1, t2, t4, ...
+##
+## Rooted; includes branch lengths.</code></pre>
+<p>The <code>t</code> object has a number of other methods you can use:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t</code></pre></div>
+<pre><code>## &lt;queuer_task&gt;
+##   Public:
+##     clone: function (deep = FALSE)
+##     context_id: function ()
+##     expr: function (locals = FALSE)
+##     id: 1ef9048c5a3448bcf898237e38cd2cd5
+##     initialize: function (id, root, check_exists = TRUE)
+##     log: function (parse = TRUE)
+##     result: function (allow_incomplete = FALSE)
+##     root: context_root
+##     status: function ()
+##     times: function (unit_elapsed = &quot;secs&quot;)
+##     wait: function (timeout, time_poll = 0.5, progress = NULL)</code></pre>
+<p>Get the result from running a task</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t$<span class="kw">result</span>()</code></pre></div>
+<pre><code>##
+## Phylogenetic tree with 10 tips and 9 internal nodes.
+##
+## Tip labels:
+##  t8, t5, t10, t1, t2, t4, ...
+##
+## Rooted; includes branch lengths.</code></pre>
+<p>Get the status of the task</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t$<span class="kw">status</span>()</code></pre></div>
+<pre><code>## [1] &quot;COMPLETE&quot;</code></pre>
+<p>(might also be “PENDING”, “RUNNING” or “ERROR”</p>
+<p>Get the original expression:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t$<span class="kw">expr</span>()</code></pre></div>
+<pre><code>## make_tree(10)</code></pre>
+<p>Find out how long everything took</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t$<span class="kw">times</span>()</code></pre></div>
+<pre><code>##                            task_id           submitted             started
+## 1 1ef9048c5a3448bcf898237e38cd2cd5 2017-05-11 11:00:41 2017-05-11 11:00:43
+##              finished  waiting    running     idle
+## 1 2017-05-11 11:00:43 1.651578 0.06250119 0.973578</code></pre>
+<p>You may see negative numbers for “waiting” as the submitted time is based on your computer and started/finished are based on the cluster.</p>
+<p>And get the log from running the task</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">t$<span class="kw">log</span>()</code></pre></div>
+<pre><code>## [ hello     ]  2017-05-11 11:00:42.922
+## [ wd        ]  Q:/cluster_testing/20170511/vignette
+## [ bootstrap ]
+## [ lib       ]  Q:\cluster_testing\20170511\vignette\contexts/lib/windows/3.3
+## [ init      ]  2017-05-11 11:00:42.984
+## [ hostname  ]  FI--DIDEMRC27
+## [ process   ]  5724
+## [ version   ]  0.1.1
+## [ open:db   ]  rds
+## [ context   ]  a1419fe31f4c3fb34f489d2fab7a6c05
+## [ library   ]  ape, MASS
+## [ namespace ]
+## [ source    ]  mysources.R
+## [ parallel  ]  running as single core job
+## [ root      ]  Q:\cluster_testing\20170511\vignette\contexts
+## [ context   ]  a1419fe31f4c3fb34f489d2fab7a6c05
+## [ task      ]  1ef9048c5a3448bcf898237e38cd2cd5
+## [ expr      ]  make_tree(10)
+## [ start     ]  2017-05-11 11:00:43.563
+##     I am building a tree!
+## [ ok        ]
+## [ end       ]  2017-05-11 11:00:43.719
+##     Warning messages:
+##     1: package 'MASS' was built under R version 3.3.3
+##     2: package 'ape' was built under R version 3.3.3</code></pre>
+<p>There is also a bit of DIDE specific logging that happens before this point; if the job fails inexplicably the answer may be in:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">obj$<span class="kw">dide_log</span>(t)</code></pre></div>
+<pre><code>## generated on host: wpia-dide136.dide.ic.ac.uk
+## generated on date: 2017-05-11
+## didehpc version: 0.1.1
+## context version: 0.1.1
+## running on: FI--DIDEMRC27
+## mapping Q: -&gt; \\fi--san03\homes\rfitzjoh
+## The command completed successfully.
+## mapping T: -&gt; \\fi--didef2\tmp
+## The command completed successfully.
+## working directory: Q:\cluster_testing\20170511\vignette
+## this is a single task
+## logfile: Q:\cluster_testing\20170511\vignette\contexts\logs\1ef9048c5a3448bcf898237e38cd2cd5
+## Q:\cluster_testing\20170511\vignette&gt;Rscript &quot;Q:\cluster_testing\20170511\vignette\contexts\bin\task_run&quot; &quot;Q:\cluster_testing\20170511\vignette\contexts&quot; 1ef9048c5a3448bcf898237e38cd2cd5  1&gt;&quot;Q:\cluster_testing\20170511\vignette\contexts\logs\1ef9048c5a3448bcf898237e38cd2cd5&quot; 2&gt;&amp;1
+## Quitting</code></pre>
+</div>
+<div id="running-a-bunch-of-tasks" class="section level2">
+<h2>Running a bunch of tasks</h2>
+<p>There are two broad options here;</p>
+<ol style="list-style-type: decimal">
+<li>Apply a function to each element of a list, similar to <code>lapply</code> with <code>$lapply</code></li>
+<li>Apply a function to each row of a data.frame perhaps using each column as a different argument with <code>$enqueue_bulk</code></li>
+</ol>
+<p>Suppose we want to make a bunch of trees of different sizes. This would involve mapping our <code>make_tree</code> function over a vector of sizes:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sizes &lt;-<span class="st"> </span><span class="dv">3</span>:<span class="dv">8</span>
+grp &lt;-<span class="st"> </span>obj$<span class="kw">lapply</span>(sizes, make_tree)</code></pre></div>
+<pre><code>## Creating bundle: 'undivined_bufeo'</code></pre>
+<pre><code>## submitting 6 tasks</code></pre>
+<p>By default, <code>$lapply</code> returns a “task_bundle” with an automatically generated name. You can customise the name with the <code>name</code> argument.</p>
+<p>Get the startus of all the jobs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grp$<span class="kw">status</span>()</code></pre></div>
+<pre><code>## 9a0fc63271c351b3bdb5008c457d0b60 00acc4378592c907663dc5d7583d7bdc
+##                       &quot;COMPLETE&quot;                       &quot;COMPLETE&quot;
+## b220426c67143575c3667ff5f11735f0 48a2472187aa5deb778d05e571819a54
+##                       &quot;COMPLETE&quot;                       &quot;COMPLETE&quot;
+## 8ffe17494dfcc9c8d0f3a59cca42dcb1 da822ceb4d61b2f8f0bf2049b1271f81
+##                        &quot;PENDING&quot;                        &quot;PENDING&quot;</code></pre>
+<p>Wait until they are all complete and get the results</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>grp$<span class="kw">wait</span>(<span class="dv">120</span>)</code></pre></div>
+<p>The other bulk interface is where you want to run a function over a combination of parameters. Use <code>$enqueue_bulk</code> here.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pars &lt;-<span class="st"> </span><span class="kw">expand.grid</span>(<span class="dt">a =</span> letters[<span class="dv">1</span>:<span class="dv">3</span>], <span class="dt">b =</span> <span class="kw">runif</span>(<span class="dv">2</span>), <span class="dt">c =</span> pi,
+                    <span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>)
+pars</code></pre></div>
+<pre><code>##   a         b        c
+## 1 a 0.8983897 3.141593
+## 2 b 0.8983897 3.141593
+## 3 c 0.8983897 3.141593
+## 4 a 0.9446753 3.141593
+## 5 b 0.9446753 3.141593
+## 6 c 0.9446753 3.141593</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">grp &lt;-<span class="st"> </span>obj$<span class="kw">enqueue_bulk</span>(pars, combine, <span class="dt">do_call =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## Creating bundle: 'potential_mockingbird'</code></pre>
+<pre><code>## submitting 6 tasks</code></pre>
+<p>By default this runs</p>
+<ul>
+<li><code>combine(a = pars$a[[1]], b = pars$b[[1]], c = pars$c[[1]])</code></li>
+<li><code>combine(a = pars$a[[2]], b = pars$b[[2]], c = pars$c[[2]])</code></li>
+<li>…</li>
+<li><code>combine(a = pars$a[[6]], b = pars$b[[6]], c = pars$c[[6]])</code></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">res &lt;-<span class="st"> </span>grp$<span class="kw">wait</span>(<span class="dv">120</span>)
+res</code></pre></div>
+<pre><code>## [[1]]
+## [1] &quot;a: 4.03998&quot;
+##
+## [[2]]
+## [1] &quot;b: 4.03998&quot;
+##
+## [[3]]
+## [1] &quot;c: 4.03998&quot;
+##
+## [[4]]
+## [1] &quot;a: 4.08627&quot;
+##
+## [[5]]
+## [1] &quot;b: 4.08627&quot;
+##
+## [[6]]
+## [1] &quot;c: 4.08627&quot;</code></pre>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

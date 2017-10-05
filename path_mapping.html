@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>path_mapping. didehpc 0.1.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="
+Rich FitzJohn
+">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">didehpc 0.1.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Describe a path mapping</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>path_mapping(name, path_local, path_remote, drive_remote)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>name</dt>
+      <dd>Name of this map.  Can be anything at all, and is used
+for information purpopses only.</dd>
+      <dt>path_local</dt>
+      <dd>The point where the drive is attached locally.
+On Windows this will be something like "Q:/", on Mac something
+like "/Volumes/mountname", and on Linux it could be anything at
+all, depending on what you used when you mounted it (or what is
+written in <code>/etc/fstab</code>)</dd>
+      <dt>path_remote</dt>
+      <dd>The <em>network path</em> for this drive.  It
+will look something like <code>\\fi--didef2\tmp\</code>.
+Unfortunately backslashes are really hard to get right here and
+you will need to use twice as many as you expect (so <em>four</em>
+backslashes at the beginning and then two for each separator.
+If this makes you feel bad know that you are not alone:
+https://xkcd.com/1638 -- alternatively you may use forward
+slashes in place of backslashes (e.g. //fi--didef2/tmp)</dd>
+      <dt>drive_remote</dt>
+      <dd>The place to mount the drive on the cluster.
+We're probably going to mount things at Q: and T: already so
+don't use those.  And things like C: are likely to be used.
+Perhaps there are some guidelines for this somewhere?</dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Describe a path mapping for use when setting up jobs on the cluster.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>path_mapping</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+    
+    <h2>Author</h2>
+    
+Rich FitzJohn
+
+    
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>

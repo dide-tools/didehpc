@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+<title>didehpc_config. didehpc 0.1.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="">
+
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href="css/bootstrap-responsive.css" rel="stylesheet">
+<link href="css/highlight.css" rel="stylesheet">
+<link href="css/staticdocs.css" rel="stylesheet">
+
+<!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+  </head>
+
+  <body>
+    <div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <a class="brand" href="#">didehpc 0.1.1</a>
+      <div class="nav">
+        <ul class="nav">
+          <li><a href="index.html"><i class="icon-home icon-white"></i> Index</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="container">
+      <header>
+        
+      </header>
+      
+      <h1>Configuration</h1>
+
+<div class="row">
+  <div class="span8">
+    <h2>Usage</h2>
+    <pre><div>didehpc_config(credentials&nbsp;=&nbsp;NULL, home&nbsp;=&nbsp;NULL, temp&nbsp;=&nbsp;NULL, cluster&nbsp;=&nbsp;NULL, build_server&nbsp;=&nbsp;NULL, shares&nbsp;=&nbsp;NULL, template&nbsp;=&nbsp;NULL, cores&nbsp;=&nbsp;NULL, wholenode&nbsp;=&nbsp;NULL, parallel&nbsp;=&nbsp;NULL, hpctools&nbsp;=&nbsp;NULL, workdir&nbsp;=&nbsp;NULL, use_workers&nbsp;=&nbsp;NULL, use_rrq&nbsp;=&nbsp;NULL, worker_timeout&nbsp;=&nbsp;NULL, rtools&nbsp;=&nbsp;NULL, r_version&nbsp;=&nbsp;NULL, use_common_lib&nbsp;=&nbsp;NULL)</div>
+<div>didehpc_config_global(...)</div></pre>
+    
+    <h2>Arguments</h2>
+    <dl>
+      <dt>credentials</dt>
+      <dd>Either a list with elements username, password,
+or a path to a file containing lines <code>username=<username></code>
+and <code>password=<password></code> or your username (in which case
+you will be prompted graphically for your password).</dd>
+      <dt>home</dt>
+      <dd>Path to network home directory, on local system</dd>
+      <dt>temp</dt>
+      <dd>Path to network temp directory, on local system</dd>
+      <dt>cluster</dt>
+      <dd>Name of the cluster to use; one of
+<code><a href='valid_clusters.html'>valid_clusters</a>()</code> or one of the aliases
+(small/little/dide/ide; big/mrc; linux).</dd>
+      <dt>build_server</dt>
+      <dd>Currently ignored, but will soon be a windows
+build server for bespoke binary packages.</dd>
+      <dt>shares</dt>
+      <dd>Optional additional share mappings.  Can either be a
+single path mapping (as returned by <code><a href='path_mapping.html'>path_mapping</a></code>
+or a list of such calls.</dd>
+      <dt>template</dt>
+      <dd>A job template.  On fi--dideclusthn this can be
+"GeneralNodes", "4Core" or "8Core", while on "fi--didemrchnb"
+this can be "GeneralNodes", "12Core" or "16Core", "12and16Core",
+"20Core", or "24Core".  For fi--didelxhn the only valid template
+is "LinuxNodes".  See the main cluster documentation if you
+tweak these parameters, as you may not have permission to use
+all templates (and if you use one that you don't have permission
+for the job will fail).  For training purposes there is also a
+"Training" template, but you will only need to use this when
+instructed to.</dd>
+      <dt>cores</dt>
+      <dd>The number of cores to request.  This is mostly
+useful when using the <code>GeneralNodes</code> or <code>LinuxNodes</code>
+template.  If specified, then we will request this many cores
+from the windows queuer.  If you request too many cores then
+your task will queue forever!  8 is the largest this should be
+on fi--didehusthn and 16 on fi--didemrchnb (while there are 20
+core nodes you may not have access to them).  If omitted then a
+single core is selected for the GeneralNodes template or the
+<em>entire machine</em> for the other templates (unless modified
+by <code>wholenode</code>).</dd>
+      <dt>wholenode</dt>
+      <dd>Request the whole node?  This will default to
+<code>TRUE</code> if any template other than <code>GeneralNodes</code> is
+selected.</dd>
+      <dt>parallel</dt>
+      <dd>Should we set up the parallel cluster?  Normally
+if more than one core is implied (via the <code>cores</code> argument,
+by picking a template other than <code>GeneralNodes</code> or by using
+<code>wholenode</code>) then a parallel cluster will be set up (see
+Details).  If <code>parallel</code> is set to <code>FALSE</code> then this
+will not occur.  This might be useful in cases where you want to
+manage your own job level parallelism (e.g. using OpenMP) or if
+you're just after the whole node for the memory).</dd>
+      <dt>hpctools</dt>
+      <dd>Use HPC tools if available?</dd>
+      <dt>workdir</dt>
+      <dd>The path to work in on the cluster, if running out of place.</dd>
+      <dt>use_workers</dt>
+      <dd>Submit jobs to an internal queue, and run them
+on a set of workers submitted separately?  If <code>TRUE</code>, then
+<code>enqueue</code> and the bulk submission commands no longer submit
+to the DIDE queue.  Instead they create an <em>internal</em> queue
+that workers can poll.  After queuing tasks, use
+<code>submit_workers</code> to submit workers that will process these
+tasks, terminating when they are done.  You can use this
+approach to throttle the resources you need.</dd>
+      <dt>use_rrq</dt>
+      <dd>Use <code>rrq</code> to run a set of workers on the
+cluster.  This is an experimental option, and the interface here
+may change.  For now all this does is ensure a few additional
+packages are installed, and tweaks some environment variables in
+the generated batch files.  Actual rrq workers are submitted
+with the <code>submit_workers</code> method of the object.</dd>
+      <dt>worker_timeout</dt>
+      <dd>When using workers (via <code>use_workers</code>
+or <code>use_rrq</code>, the length of time (in seconds) that workers
+should be willing to set idle before exiting.  If set to zero
+then workers will be added to the queue, run jobs, and
+immediatly exit.  If greater than zero, then the workers will
+wait at least this many seconds after running the last task
+before quitting.  The number provoided can be `Inf`, in which
+case the worker will never exit (but be careful to clean the
+worker up in this case!).  The default is 600s (10 minutes)
+should be more than enough to get your jobs up and running.
+Once workers are established you can extend or reset the timeout
+by sending the <code>TIMEOUT_SET</code> message (proper documentation
+will come for this soon).</dd>
+      <dt>rtools</dt>
+      <dd>Make sure that rtools are installed (even if they
+aren't implicitly required by one of the required packages).  If
+<code>TRUE</code>, then network paths will be set up appropriately
+such that R on the cluster should find the appropriate version
+of rtools so that packages such as <code>rstan</code> and
+<code>Rcpp</code>'s inline functionality work correctly.</dd>
+      <dt>r_version</dt>
+      <dd>A string, or <code>numeric_version</code> object,
+describing the R version required.  Not all R versions are known
+to be supported, so this will check against a list of installed
+R versions for the cluster you are using (see
+<code>r_versions</code>).  If omitted then: if your R version matches
+a version on the cluster that will be used, or the oldest
+cluster version that is newer than yours, or the most recent
+cluster version.</dd>
+      <dt>use_common_lib</dt>
+      <dd>Logical, indicating if a common library of
+packages should be used.  This will reduce the overal startup
+time of your queue object (on the first running) and reduce the
+total disk space footprint by a few tens of megabytes.  This is
+particularly useful if using the <code>BH</code> package as unpacking
+that on the network drive can take a few minutes.  The common
+library can only be used if the temporary drive is mounted on
+your computer.</dd>
+      <dt>...</dt>
+      <dd>arguments to <code>didehpc_config</code></dd>
+    </dl>
+    
+    <div class="Description">
+      <h2>Description</h2>
+
+      <p>Collects configuration information.  Unfortunately there's a
+fairly complicated process of working out what goes where so
+documentation coming later.</p>
+  
+    </div>
+
+    <div class="Resources and parallel computing">
+      <h2>Resources and parallel computing</h2>
+
+      <p></p>
+  
+      <p>If you need more than one core per task (i.e., you want the each
+  task to do some parallel processing <em>in addition</em> to the
+  parallelism between tasks) you can do that through the
+  configuration options here.</p>
+  
+      <p>The <code>template</code> option choses among templates defined on the
+  cluster.  If you select one of these then we will reserve an
+  entire node <em>unless</em> you also specify <code>cores</code>.
+  Alternatively if <code>wholenode</code> is specified this overrides
+  the logic here.</p>
+  
+      <p>If you specify <code>cores</code>, the HPC will queue your job until an
+  appropriate number of cores appears for the selected template.
+  This can leave your job queing forever (e.g., selecting 20 cores
+  on a 16Core template) so be careful.  The <code>cores</code> option is
+  most useful with the <code>GeneralNodes</code> template, which is the
+  default (<code>LinuxNodes</code> on <code>fi--didelxhn</code>).</p>
+  
+      <p>In either case, if more than 1 core is implied (either by using
+  any template other than <code>GeneralNodes</code> or by specifying a
+  <code>cores</code> value greater than 1) on startup, a <code>parallel</code>
+  cluster will be started, using <code>parallel::makePSOCKcluster</code>
+  and this will be registered as the default cluster.  The nodes
+  will all have the appropriate context loaded and you can
+  immediately use them with <code>parallel::clusterApply</code> and
+  related functions by passing <code>NULL</code> as the first argument.
+  The cluster will be shut down politely on exit, and logs will be
+  output to the "workers" directory below your context root.</p>
+  
+    </div>
+
+    <div class="Workers and rrq">
+      <h2>Workers and rrq</h2>
+
+      <p></p>
+  
+      <p>The options <code>use_workers</code> and <code>use_rrq</code> interact, share
+some functionality, but are quite different.</p>
+  
+      <p>With <code>use_workers</code>, jobs are never submitted when you run
+<code>enqueue</code> or one of the bulk submission commands in
+<code>queuer</code>.  Instead you submit workers using
+<code>submit_workers</code> and then the submission commands push task
+ids onto a Redis queue that the workers monitor.</p>
+  
+      <p>With <code>use_rrq</code>, <code>enqueue</code> etc still work as before, plus
+you <em>must</em> submit workers with <code>submit_workers</code>.  The
+difference is that any job may access the <code>rrq_controller</code>
+and push jobs onto a central pool of tasks.</p>
+  
+      <p>I'm not sure at this point if it makes any sense for the two
+approaches to work together so this is disabled for now.  If you
+think you have a use case please let me know.</p>
+  
+    </div>
+      </div>
+  <div class="span4">
+    <!-- <ul>
+      <li>didehpc_config</li><li>didehpc_config_global</li>
+    </ul>
+    <ul>
+      
+    </ul> -->
+      
+        
+  </div>
+</div>
+      
+      <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+<p>Built by <a href="https://github.com/hadley/staticdocs">staticdocs</a>. Styled with <a href="http://twitter.github.com/bootstrap">bootstrap</a>.</p>
+      </footer>
+    </div>
+  </body>
+</html>
